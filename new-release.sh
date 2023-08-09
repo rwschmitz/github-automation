@@ -24,7 +24,7 @@ git tag v$VERSION_NUMBER
 git push origin tag v$VERSION_NUMBER
 
 # Define release title
-RELEASE_TITLE = "Release v$VERSION_NUMBER"
+RELEASE_TITLE="Release v$VERSION_NUMBER"
 
 # Create a new release, automatically generate the notes, set the target to the release branch, and set a title
 gh release create v$VERSION_NUMBER --generate-notes --target $RELEASE_BRANCH_NAME --title $RELEASE_TITLE
