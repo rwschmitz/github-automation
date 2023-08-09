@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
-      - name: Fetch and pull from develop
-        run: git fetch && git pull
       - name: Create new release branch
         run: git checkout -b release/automation-v${{ github.event.inputs.version }}
       - name: Push new release branch
@@ -27,6 +25,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release PR
-        run: gh pr create --base main --head release/automation-v${{ github.event.inputs.version }} --body "fix body later" --label release --title "Release v${{ github.event.inputs.version }}"
+        run: gh pr create --base main --head release/automation-v${{ github.event.inputs.version }} --body "$(gh release view v${{ github.event.inputs.version }} --json body --jq '.body')" --label release --title "Release v${{ github.event.inputs.version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
