@@ -7,6 +7,6 @@ jobs:
     steps:
       - name: Run script file
         run: |
-          chmod +x ./new-release.sh
-          ./new-release.sh
+          chmod +x new-release.sh
+          new-release.sh
         shell: bash
