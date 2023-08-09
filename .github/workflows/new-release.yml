@@ -1,0 +1,12 @@
+name: New Release
+run-name: Create a new release and associated PR
+on: [workflow_dispatch]
+jobs:
+  Create-New-Release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run script file
+        run: |
+          chmod +x ../../new-release.sh
+          ../../new-release.sh
+        shell: bash
