@@ -12,3 +12,5 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
+      - name: Fetch and pull from develop
+        run: git fetch && git pull
