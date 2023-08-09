@@ -26,3 +26,7 @@ jobs:
         run: gh release create v${{ github.event.inputs.version }} --generate-notes --target release/automation-v${{ github.event.inputs.version }} --title "Release v${{ github.event.inputs.version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release PR
+        run: gh pr create --base main --head release/automation-v${{ github.event.inputs.version }} --body "fix body later" --label release --title "Release v${{ github.event.inputs.version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
