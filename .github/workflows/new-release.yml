@@ -1,0 +1,30 @@
+name: New Release
+run-name: Create a new release and associated PR
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The version number for the new release"
+        required: true
+jobs:
+  Create-New-Release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+      - name: Create new release branch
+        run: git checkout -b release/automation-v${{ github.event.inputs.version }}
+      - name: Push new release branch
+        run: git push --set-upstream origin release/automation-v${{ github.event.inputs.version }}
+      - name: Create new tag
+        run: git tag v${{ github.event.inputs.version }}
+      - name: Push new tag
+        run: git push origin tag v${{ github.event.inputs.version }}
+      - name: Create new release, automatically generate notes, set target, and create release title
+        run: gh release create v${{ github.event.inputs.version }} --generate-notes --target release/automation-v${{ github.event.inputs.version }} --title "Release v${{ github.event.inputs.version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release PR
+        run: gh pr create --base main --head release/automation-v${{ github.event.inputs.version }} --body "$(gh release view v${{ github.event.inputs.version }} --json body --jq '.body')" --label release --title "Release v${{ github.event.inputs.version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
