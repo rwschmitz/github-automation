@@ -5,8 +5,9 @@ jobs:
   Create-New-Release:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Run script file
         run: |
-          chmod +x new-release.sh
-          new-release.sh
+          chmod +x ./new-release.sh
+          ./new-release.sh
         shell: bash
