@@ -1,0 +1,23 @@
+name: Sync develop and main
+run-name: Sync develop from latest release on main
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Current date yyyy-mm-dd (Example: 1995-12-04)"
+        required: true
+jobs:
+  Create-New-Release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+      - name: Create new chore branch
+        run: git checkout -b chore/sync-tags-v${{ github.event.inputs.version }}
+      - name: Push new chore branch
+        run: git push --set-upstream origin chore/sync-tags-v${{ github.event.inputs.version }}
+      - name: Create chore PR
+        run: |
+          gh pr create --base develop --head chore/sync-tags-v${{ github.event.inputs.version }} --body "Sync develop from latest release on main" --label release --title "Chore: Sync Tags"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
