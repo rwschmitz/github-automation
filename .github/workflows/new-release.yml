@@ -18,3 +18,7 @@ jobs:
         run: git checkout -b release/automation-v${{ github.event.inputs.version }}
       - name: Push new release branch
         run: git push --set-upstream origin release/automation-v${{ github.event.inputs.version }}
+      - name: Create new tag
+        run: git tag v${{ github.event.inputs.version }}
+      - name: Push new tag
+        run: git push origin tag v${{ github.event.inputs.version }}
