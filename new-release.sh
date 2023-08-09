@@ -30,4 +30,4 @@ RELEASE_TITLE="Release v$VERSION_NUMBER"
 gh release create v$VERSION_NUMBER --generate-notes --target $RELEASE_BRANCH_NAME --title $RELEASE_TITLE
 
 # Create a new PR FROM the release branch TO the main branch and populate the body with the release notes
-gh pr create --base $MAIN_BRANCH_NAME --head $RELEASE_BRANCH_NAME --body "$(gh release view v$VERSION_NUMBER --json body --jq '.body')" --label release --title $RELEASE_TITLE
+gh pr create --base $MAIN_BRANCH_NAME --head $RELEASE_BRANCH_NAME --body "$(gh release view v$VERSION_NUMBER --json body --jq '.body')" --label release --title "$RELEASE_TITLE"
