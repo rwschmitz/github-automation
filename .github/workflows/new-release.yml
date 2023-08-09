@@ -16,3 +16,5 @@ jobs:
         run: git fetch && git pull
       - name: Create new release branch
         run: git checkout -b release/automation-v${{ github.event.inputs.version }}
+      - name: Push new release branch
+        run: git push --set-upstream origin release/automation-v${{ github.event.inputs.version }}
