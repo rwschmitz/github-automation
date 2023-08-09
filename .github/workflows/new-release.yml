@@ -1,14 +1,11 @@
 name: New Release
-
 run-name: Create a new release and associated PR
-
 on:
   workflow_dispatch:
     inputs:
       version:
         description: "The version number for the new release"
         required: true
-
 jobs:
   Create-New-Release:
     runs-on: ubuntu-latest
